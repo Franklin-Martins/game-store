@@ -1,29 +1,51 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import api from '../../services/api';
 import Navigation from '../../components/Navigation';
-import SliderComponent from '../../components/Slider';
-
+import { ListGroup, ListGroupItem } from 'reactstrap'
+import './index.css'
 interface IGameRecommended{
     name:string;
     imageURL:string;
 }
 
 const Main: React.FC = () =>{
-    const [games, setGames] = useState<IGameRecommended[]> ([
-        {name:'Read Dead', imageURL:'https://static-wp-tor15-prd.torcedores.com/wp-content/uploads/2019/02/maxresdefault-1.jpg'}
-    ])
+    const [games, setGames] = useState<IGameRecommended[]> ([])
+
+    useEffect(()=>{
+        async function loadRecommended(){
+            const response = await api.get('/recommend');
+            console.log(response.data)
+            setGames(response.data)
+        }
+
+        loadRecommended();
+    }, []);
     return(
         <>
         <Navigation/>
         <div className="container">
+            <img src="https://images.wallpapersden.com/image/download/the-last-of-us-remastered_a2tsbGuUmZqaraWkpJRmZ21lrWxnZQ.jpg" alt="" />
+        <p className="h3"> Recomendados para você </p>
+        <div className='fixed'>
+        <ListGroup horizontal>
+            {games.map((game)=>{
+                return(
+                    <div className="item">
 
-        <div className="row">
-        <h3 className='center'>Jogos Recomendados:</h3>
-        <SliderComponent  {...games} />
+                    <ListGroupItem
+                    
+                    href="#"
+                    tag="a"
+                    >
+                        <img src={game.imageURL} alt="" width={350}/>
+                        <p className='h5'> {game.name} </p>
+                    </ListGroupItem>
+                    </div>
+                )
+            })}
+        </ListGroup>
         </div>
         </div>
-
-        
         </>
     );
 }

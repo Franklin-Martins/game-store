@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import 'materialize-css/dist/css/materialize.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";

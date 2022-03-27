@@ -1,0 +1,11 @@
+.fixed{
+    margin: 20px;
+    padding: 6px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    display: flex;
+}
+
+.item{
+    padding: 6px;
+}
